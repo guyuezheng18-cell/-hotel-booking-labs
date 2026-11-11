@@ -23,20 +23,24 @@
 <rect x="64" y="233" width="1312" height="100" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>
 <text x="88" y="263" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">目的地</text>
 <text x="88" y="295" font-size="18" fill="#172B46" font-weight="600" text-anchor="start">南京</text>
-<path d="M250 284l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
-<text x="310" y="263" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">入住日期</text>
-<text x="310" y="295" font-size="18" fill="#172B46" font-weight="600" text-anchor="start">2026-11-20</text>
-<path d="M500 284l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
-<text x="572" y="263" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">退房日期</text>
-<text x="572" y="295" font-size="18" fill="#172B46" font-weight="600" text-anchor="start">2026-11-22</text>
-<path d="M762 284l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
-<text x="834" y="263" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">入住人数</text>
-<text x="834" y="295" font-size="18" fill="#172B46" font-weight="600" text-anchor="start">2 人</text>
-<path d="M950 284l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
-<path d="M286 253L286 311" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
-<path d="M548 253L548 311" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
-<path d="M810 253L810 311" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
-<path d="M1018 253L1018 311" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<path d="M198 284l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
+<path d="M220 253L220 311" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<text x="244" y="263" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">酒店 · 可搜索</text>
+<text x="244" y="295" font-size="18" fill="#172B46" font-weight="600" text-anchor="start">南京栖岸酒店</text>
+<path d="M449 284l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
+<path d="M471 253L471 311" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<text x="495" y="263" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">入住日期</text>
+<text x="495" y="295" font-size="18" fill="#172B46" font-weight="600" text-anchor="start">2026-11-20</text>
+<path d="M655 284l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
+<path d="M677 253L677 311" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<text x="700" y="263" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">退房日期</text>
+<text x="700" y="295" font-size="18" fill="#172B46" font-weight="600" text-anchor="start">2026-11-22</text>
+<path d="M858 284l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
+<path d="M880 253L880 311" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<text x="908" y="263" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">入住人数</text>
+<text x="908" y="295" font-size="18" fill="#172B46" font-weight="600" text-anchor="start">2 人</text>
+<path d="M1018 284l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
+<path d="M1040 253L1040 311" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
 <rect x="1090" y="247" width="76" height="27" rx="5" fill="#F0F4FA" stroke="none"/>
 <text x="1128.0" y="265" font-size="12" fill="#65758B" font-weight="500" text-anchor="middle">共 2 晚</text>
 <rect x="1192" y="261" width="160" height="44" rx="8" fill="#2463DA" stroke="#2463DA"/>
@@ -78,7 +82,7 @@
 <rect x="785" y="515" width="150" height="120" rx="25" fill="#EEF3FB" stroke="none"/>
 <circle cx="850" cy="565" r="29" fill="white" stroke="#8DA7D5" stroke-width="4"/><path d="M872 587l24 24" stroke="#8DA7D5" stroke-width="7" stroke-linecap="round"/>
 <text x="860" y="686" font-size="24" fill="#172B46" font-weight="600" text-anchor="middle">暂时没有符合条件的房源</text>
-<text x="860" y="724" font-size="14" fill="#65758B" font-weight="400" text-anchor="middle">南京 · 11月20日至22日 · 2人 · 住宿总价 ¥0–500</text>
+<text x="860" y="724" font-size="14" fill="#65758B" font-weight="400" text-anchor="middle">南京栖岸酒店 · 11月20日至22日 · 2人 · 住宿总价 ¥0–500</text>
 <text x="860" y="755" font-size="14" fill="#65758B" font-weight="400" text-anchor="middle">可以提高总价上限，或调整入住日期与房型。</text>
 <rect x="765" y="792" width="190" height="44" rx="8" fill="#2463DA" stroke="#2463DA"/>
 <text x="860.0" y="820" font-size="15" fill="#FFFFFF" font-weight="600" text-anchor="middle">清除价格限制</text>

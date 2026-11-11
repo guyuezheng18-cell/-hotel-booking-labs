@@ -5,6 +5,7 @@
   "guests": 2,
   "offers": [
     {
+      "hotelId": "NJ01",
       "hotel": "南京栖岸酒店",
       "area": "鼓楼区 · 中山北路",
       "room": "舒适大床房",
@@ -21,6 +22,7 @@
       "theme": "warm"
     },
     {
+      "hotelId": "NJ02",
       "hotel": "南京云庭酒店",
       "area": "玄武区 · 珠江路",
       "room": "舒适双床房",
@@ -37,6 +39,7 @@
       "theme": "blue"
     },
     {
+      "hotelId": "NJ03",
       "hotel": "南京溪畔酒店",
       "area": "秦淮区 · 长乐路",
       "room": "景观大床房",
