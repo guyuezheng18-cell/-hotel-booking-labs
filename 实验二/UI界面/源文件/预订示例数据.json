@@ -1,0 +1,17 @@
+{
+  "scenario": "演示数据；价格变化与按原价成功为两个独立分支",
+  "originalPrices": [
+    268,
+    288
+  ],
+  "originalTotal": 556,
+  "changedPrices": [
+    268,
+    308
+  ],
+  "changedTotal": 576,
+  "successSubmittedAt": "2026-11-10T15:20:00",
+  "successDeadline": "2026-11-10T15:50:00",
+  "timezone": "Asia/Shanghai",
+  "orderId": "HB202611100001（演示）"
+}

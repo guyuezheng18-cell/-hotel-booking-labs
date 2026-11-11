@@ -1,0 +1,106 @@
+@startuml
+title 酒店预订系统 UML类图（预订与库存核心）
+top to bottom direction
+hide circle
+skinparam shadowing false
+skinparam defaultFontName Microsoft YaHei
+skinparam classAttributeIconSize 0
+skinparam nodesep 35
+skinparam ranksep 45
+
+class "用户\nUser" as User {
+  - id: Long
+  - username: String
+  - role: Role
+  - enabled: Boolean
+  + isEnabled(): Boolean
+}
+
+class "酒店\nHotel" as Hotel {
+  - id: Long
+  - name: String
+  - city: String
+  - enabled: Boolean
+  + isBookable(): Boolean
+}
+
+class "房型\nRoomType" as RoomType {
+  - id: Long
+  - name: String
+  - bedType: String
+  - maxGuests: Integer
+  + allowsGuests(count: Integer): Boolean
+}
+
+class "每日库存\nDailyInventory" as DailyInventory {
+  - stayDate: Date
+  - total: Integer
+  - occupied: Integer
+  - nightlyPrice: Decimal
+  - stopSale: Boolean
+  + available(): Integer
+  + canSell(today: Date): Boolean
+}
+
+class "订单\nOrder" as Order {
+  - orderNo: String
+  - status: OrderStatus
+  - guestCount: Integer
+  - contactName: String
+  - contactPhone: String
+  - contentVersion: Integer
+  - currentPlanNo: Integer
+  - confirmationDeadline: DateTime
+  - actualCheckIn: DateTime [0..1]
+  - actualCheckOut: DateTime [0..1]
+  + canAmend(now: DateTime): Boolean
+  + canCustomerCancel(now: DateTime): Boolean
+}
+
+class "订单方案\nOrderRevision" as OrderRevision {
+  - revisionNo: Integer
+  - checkInDate: Date
+  - checkOutDate: Date
+  - savedAt: DateTime
+  - hotelSnapshot: HotelSnapshot
+  - roomTypeSnapshot: RoomTypeSnapshot
+  + totalPrice(): Decimal
+}
+
+class "逐晚明细\nOrderNight" as OrderNight {
+  - stayDate: Date
+  - priceSnapshot: Decimal
+}
+
+class "库存占用\nInventoryAllocation" as Allocation {
+  - state: AllocationState
+  - reservedAt: DateTime
+  - releasedAt: DateTime [0..1]
+  - releaseReason: String [0..1]
+  + markUsed(): void
+  + release(reason: String): Boolean
+}
+
+Hotel "1" -- "0..*" RoomType : 拥有
+RoomType "1" -- "0..*" DailyInventory : 逐日设置
+User "1" -- "0..*" Order : 顾客创建
+Hotel "1" -- "0..*" Order : 所属酒店
+Order "1" *-- "1..*" OrderRevision : 保存历次方案
+RoomType "1" -- "0..*" OrderRevision : 方案对应房型
+OrderRevision "1" *-- "1..*" OrderNight : 保存逐晚价格
+OrderNight "1" -- "1" Allocation : 对应占用记录
+DailyInventory "1" -- "0..*" Allocation : 记录占用与释放
+
+legend bottom
+  Role：顾客、酒店工作人员、平台管理员。
+  OrderStatus：待确认、已确认、已拒绝、已取消、已入住、已完成。
+  AllocationState：预留、已使用、已释放。每笔订单预订一间房。
+  currentPlanNo指定当前方案；历次方案均保留，所属房型须属于订单酒店。
+  方案入住日含、退房日不含；总价为方案内逐晚价格快照之和。
+  仅修改人数或联系方式不创建新方案，不改变价格、库存、状态及确认截止。
+  同房型同日期改订复用原预留；旧记录保留，新旧占用在同一事务中衔接。
+  occupied对应仍占用的预留或已使用记录数量，释放记录不再计入。
+  组合关系表示历史明细归属，不表示允许删除订单或级联删除历史。
+  本图展示核心实体及部分属性；服务、会话、通知、日志和异常记录另见架构设计。
+endlegend
+@enduml

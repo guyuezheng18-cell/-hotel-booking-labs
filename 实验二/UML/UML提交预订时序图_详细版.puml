@@ -1,0 +1,120 @@
+@startuml
+title 酒店预订系统 UML提交预订时序图（详细版）
+hide footbox
+autonumber
+skinparam shadowing false
+skinparam defaultFontName Microsoft YaHei
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 48
+
+actor "顾客" as Customer
+boundary "预订页面" as Web
+control "订单服务\nM05" as Order
+control "权限服务\nM01" as Auth
+control "库存服务\nM03" as Stock
+control "日志服务\nM10" as Audit
+database "数据访问层 / PostgreSQL" as DB
+
+Customer -> Web : 确认报价并提交预订信息
+Web -> Web : 检查表单格式和CSRF凭据
+Web -> Order : 创建预订（请求键、方案、报价确认凭据）
+Order -> Auth : 校验当前会话、账号状态及顾客权限
+Auth -> DB : 查询当前会话与账号
+DB --> Auth : 当前身份与权限
+Auth --> Order : 校验结果
+break 身份无效或无权操作
+  Order --> Web : 拒绝请求，不修改业务数据
+  Web --> Customer : 提示重新登录或无操作权限
+end
+
+group 数据库事务：所有模块共享同一事务上下文
+  Order -> DB : BEGIN
+  Order -> DB : 登记唯一请求键及内容摘要\n冲突时等待前一事务结果，不重复插入
+  DB --> Order : 新请求，或已处理请求及原内容摘要
+
+  break 相同请求键携带不同内容
+    Order -> DB : ROLLBACK
+    Order --> Web : 拒绝请求键复用
+    Web --> Customer : 提示使用新的请求标识
+  end
+
+  break 同一内容的原请求已经成功处理
+    Order -> DB : 读取原订单及其当前状态
+    DB --> Order : 原订单（包括已取消等最新状态）
+    Order -> DB : ROLLBACK（结束本次无变更事务）
+    Order --> Web : 返回原订单，不再次占用库存
+    Web --> Customer : 展示原订单当前结果
+  end
+
+  Order -> DB : 保护酒店和房型资料，校验日期、人数\n核对是否存在同内容的有效预订
+  DB --> Order : 资料和业务校验结果
+  break 资料、日期、人数不合法，或已有重复有效预订
+    Order -> DB : ROLLBACK
+    Order --> Web : 返回失败原因
+    Web --> Customer : 提示修改信息或查看已有订单
+  end
+
+  Order -> Stock : 复核逐晚库存和当前报价（共享事务）
+  Stock -> DB : 按房型ID、日期顺序锁定\n[入住日，退房日)的全部日库存
+  DB --> Stock : 逐晚价格、总数、占用及停售状态
+  Stock -> Stock : 核对日期完整、未停售、余量为正\n计算逐晚报价及总价
+  Stock --> Order : 可售性与当前报价
+
+  break 任一晚缺少数据、无房或停售
+    Order -> DB : ROLLBACK
+    Order --> Web : 整笔预订失败，未留下部分占用
+    Web --> Customer : 提示调整房型或日期
+  end
+
+  Order -> Order : 以锁后当前时刻复核入住日期\n核验报价凭据绑定的顾客和方案
+  break 入住日期已过期或报价凭据无效
+    Order -> DB : ROLLBACK
+    Order --> Web : 拒绝本次提交，提示刷新预订信息
+    Web --> Customer : 刷新日期或重新获取合法报价
+  end
+
+  break 当前报价与顾客已确认报价不一致
+    Order -> DB : ROLLBACK
+    Order --> Web : 返回新报价及绑定顾客和方案的新确认凭据
+    Web --> Customer : 展示新报价，等待主动确认后重新提交
+  end
+
+  group 业务写入（任一步失败立即中止后续写入）
+    Order -> DB : 保存待确认订单、方案快照及逐晚明细\n计算有效确认截止，落实有效预订唯一约束
+    Order -> Stock : 为新订单预留全部住宿日期库存
+    Stock -> DB : 更新逐晚占用数量，保存占用记录
+    Stock --> Order : 预留完成
+    Order -> Audit : 记录创建成功事件（共享事务）
+    Audit -> DB : 写入操作者、订单号、结果及必要变更内容
+    Audit --> Order : 日志已写入，等待统一提交
+    Order -> DB : 保存请求键与原订单、处理事件的关联
+  end
+
+  alt 所有业务写入成功
+    Order -> DB : COMMIT
+    alt 已收到数据库提交成功的确认
+      DB --> Order : 提交成功
+      Order --> Web : 创建成功：订单号、待确认状态、价格和截止
+      Web --> Customer : 展示订单详情，等待酒店确认
+    else 提交结果未确认（如提交时连接中断）
+      Order --> Web : 结果待核实，不宣称已失败或已回滚
+      Web --> Customer : 使用原请求键重试或查询原结果
+    end
+  else 任一步写入失败（包括并发唯一约束冲突）
+    Order -> DB : ROLLBACK
+    Order -> Audit : 回滚后尝试独立记录失败原因
+    Audit -> DB : 独立短事务保存失败日志（数据库可用时）
+    Order --> Web : 预订失败；订单和库存整体未生效
+    Web --> Customer : 展示失败原因及重试提示
+  end
+end
+
+legend bottom
+  请求键按“顾客＋操作类型＋请求键”唯一；同内容重发返回原单，不同内容不得复用。
+  有效预订按“顾客＋酒店＋房型＋相同入住退房日”唯一，与请求键约束分别执行。
+  资料、库存锁一直保持至提交或回滚；并发争抢最后一间房时在锁内复核余量。
+  库存服务、日志服务不得独立提交；业务写入中异常可直接进入整体回滚分支。
+  提交成功但页面未收到响应时，用原请求键重试，不重复创建或扣减。
+  首次创建只进入待确认，不生成“酒店已确认”通知；后续处理结果另行通知。
+endlegend
+@enduml

@@ -1,0 +1,111 @@
+@startuml
+title 酒店预订系统 UML修改预订时序图（补充设计）
+hide footbox
+autonumber
+skinparam shadowing false
+skinparam defaultFontName Microsoft YaHei
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 50
+
+actor "顾客" as Customer
+boundary "修改预订页面" as Web
+control "订单服务 M05" as Order
+control "库存服务 M03" as Stock
+control "日志服务 M10" as Audit
+database "数据访问层 / PostgreSQL" as DB
+
+group 方案预览：只读，不保留新库存
+  Customer -> Web : 选择同酒店的新房型或住宿日期
+  Web -> Order : 请求预览修改方案
+  ref over Order, DB : 经M01校验当前身份，读取本人订单并初步检查可修改条件；无权或不合法时提示并结束
+  Order -> Stock : 查询新方案逐晚现价与可售性，计入原单可复用预留
+  Stock --> Order : 新报价与库存检查结果（预览不可售时提示修正；提交时仍须复核）
+  Order --> Web : 新旧房型、日期、总价及当前内容版本\n绑定本人、订单、版本和新方案的报价确认凭据
+  Web --> Customer : 对照新旧方案，说明重新等待酒店确认\n新方案后来被拒绝或超时不会恢复旧方案
+end
+
+break 顾客未最终确认或退出页面
+  note over Customer, DB
+    本次预览不改变原订单、价格、库存或确认截止。
+    酒店处理和到期等独立事件仍可改变原订单。
+  end note
+end
+
+Customer -> Web : 主动确认新报价及改订后果
+Web -> Order : 提交改订（订单号、新方案、预期版本、报价凭据、请求键）
+ref over Order, DB : 重新校验当前身份及订单归属；无权请求立即结束
+
+group 共享数据库事务
+  Order -> DB : BEGIN
+  ref over Order, DB
+    原子登记改订请求键；并发同键等待前一处理结果
+    同键同内容已处理则查询原结果；同键异内容拒绝复用
+  end ref
+  break 原请求已处理或请求内容冲突
+    Order -> DB : 结束无业务变更的事务
+    Order --> Web : 返回已保存的改订结果及订单当前状态，或内容冲突
+    Web --> Customer : 展示结果，不重复修改方案或库存
+  end
+
+  Order -> DB : 按统一锁序保护酒店房型资料、锁定订单\n读取当前状态、方案、内容版本及原库存占用
+  DB --> Order : 最新订单、方案及占用记录
+  Order -> Order : 校验状态、预期版本和适用时限\n新方案须同酒店、日期与人数合法
+  break 订单已变化，或已不符合修改条件
+    Order -> DB : ROLLBACK
+    Order --> Web : 拒绝本次修改，提示刷新当前订单
+    Web --> Customer : 展示冲突或不可修改原因
+  end
+
+  Order -> Stock : 校验新方案并计算库存净变化（共享事务）
+  Stock -> DB : 按房型ID、日期锁定新旧区间库存并集
+  DB --> Stock : 新旧区间的逐日库存、现价和停售标记
+  Stock -> Stock : 同房型同日期计入本单原预留\n新方案逐晚检查可售性，按全部新住宿晚数重新计价
+  Stock --> Order : 当前新报价、可售结果、库存净变化方案
+  Order -> Order : 锁后再次检查当前时间及新入住日\n核验报价凭据、新报价和重复有效预订
+
+  alt 新方案全部校验通过且报价已获确认
+    group 整体写入（任一步失败立即中止后续写入）
+      Order -> DB : 保存新方案及逐晚价格快照，保留旧方案历史
+      Order -> Stock : 应用新旧方案库存净变化
+      Stock -> DB : 原子更新日库存及占用记录\n释放旧方案独有预留，复用重叠预留，新增新方案独有预留
+      Order -> DB : 切换当前方案，内容版本与方案编号递增\n设为待确认，按新方案保存时间重算确认截止
+      Order -> Audit : 保存改订前后信息与成功事件（共享事务）
+      Audit -> DB : 写入日志，等待统一提交
+      Order -> DB : 保存请求键与本次改订结果的关联
+    end
+
+    alt 全部业务写入成功
+      Order -> DB : COMMIT
+      DB --> Order : 提交成功
+      Order --> Web : 新方案、待确认状态及新确认截止
+      Web --> Customer : 修改成功，重新等待酒店确认
+    else 任一步写入失败（含并发有效预订唯一约束冲突）
+      Order -> DB : ROLLBACK
+      ref over Order, DB : 回滚后由M10独立尝试记录失败日志
+      Order --> Web : 本次修改全部未生效，保留修改前方案与库存
+      Web --> Customer : 展示失败原因
+    end
+  else 无房、停售、时间不合法、凭据无效、报价变化或重复有效预订
+    Order -> DB : ROLLBACK，原方案不受本次修改影响
+    Order --> Web : 失败原因；合法报价变化时返回新报价及确认凭据
+    Web --> Customer : 调整方案；报价变化须再次主动确认
+  end
+end
+
+note over Order, DB
+  COMMIT结果未确认或成功响应丢失时，用原请求键核实结果，
+  不能直接断言已回滚，也不能凭旧页面再次执行库存调整。
+end note
+
+legend bottom
+  修改条件：本人待确认或已确认订单；实际执行早于原入住日00:00；新入住日晚于修改当日。
+  待确认方案已到确认截止时，不通过改订延长过期等待，超时处理按原规则执行。
+  改房型或日期时，新方案每晚均需可售，重叠日期也必须未停售；校验余量时计入本单可复用预留。
+  新确认截止 = min(新方案保存时间+30分钟，新入住日次日00:00)，旧方案的超时任务不得取消新方案。
+  顾客确认前不持有事务锁；最终提交仍须复核。全程不得跨酒店改订。
+  重复有效预订检查排除本订单，并由数据库唯一约束保证并发情况下的最终结果。
+  仅改人数或联系方式走独立路径：校验身份、版本、状态、时间和信息；不重报价、不检查新方案可售性。
+  仅改信息不改变价格、库存、状态或原确认截止，仍须保存修改日志，不增加方案对照确认步骤。
+  所有成功变更与日志在同一事务提交。新方案后来被拒绝或超时，仅释放新方案，不恢复旧方案。
+endlegend
+@enduml

@@ -1,0 +1,55 @@
+@startuml
+title 酒店预订系统 UML组件图（简化版）
+top to bottom direction
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam packageStyle rectangle
+
+component "Web表现层\n顾客端 / 酒店工作人员端 / 平台管理员端" as Web
+
+package "业务层：同一应用中的10个逻辑模块" as Business {
+  component "M04 房源查询" as Search
+  component "M06 入住与退房" as Stay
+  component "M07 履约异常处理" as Incident
+  component "M09 订单与余房统计" as Statistics
+
+  component "M05 预订与订单管理" as Order
+  component "M02 酒店与房型管理" as Catalog
+  component "M03 库存与房价管理" as Inventory
+  component "M08 系统内通知" as Notification
+
+  package "公共业务能力（省略重复依赖线）" {
+    component "M01 账号与权限管理" as Auth
+    component "M10 操作日志与追溯" as Audit
+  }
+
+  Search ..> Catalog : 查询资料
+  Search ..> Inventory : 查询价格与余量
+  Stay ..> Order : 入住、未到店、退房
+  Incident ..> Order : 查询及受权处理
+  Incident ..> Inventory : 工作人员停售
+  Order ..> Inventory : 预留、复用、释放
+  Order ..> Notification : 保存处理结果
+  Statistics ..> Order : 只读查询
+  Statistics ..> Inventory : 只读查询
+}
+
+component "定时任务工作进程" as Scheduler
+component "数据访问层\n各模块Repository / 共享事务上下文" as Repositories
+database "PostgreSQL\n业务数据、历史、通知、日志" as DB
+
+Web ..> Business : 按角色调用业务服务
+Scheduler ..> Order : 确认超时
+Scheduler ..> Stay : 未到店、退房提醒
+Business ..> Repositories : 统一的数据访问方式
+Repositories --> DB : 持久化
+
+legend bottom
+  本图只展示核心调用依赖，省略重复连线。
+  业务请求经M01校验权限，关键变更由M10记录。
+  各模块通过数据访问层操作数据库，不独立提交跨模块业务。
+  订单、逐晚库存、成功日志及对应通知在同一事务中提交。
+  管理端可管理酒店、账号和权限；订单异常仅查询、通知及协调。
+  管理员不能直接确认、拒绝或取消订单。
+endlegend
+@enduml

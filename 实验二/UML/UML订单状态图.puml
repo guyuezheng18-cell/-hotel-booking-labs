@@ -1,0 +1,53 @@
+@startuml
+title 酒店预订系统 UML订单状态图
+top to bottom direction
+hide empty description
+skinparam shadowing false
+skinparam defaultFontName Microsoft YaHei
+skinparam nodesep 55
+skinparam ranksep 60
+
+state "待确认" as Pending
+state "已确认" as Confirmed
+state "已入住" as CheckedIn
+state "已完成" as Completed
+state "已拒绝" as Rejected
+state "已取消" as Cancelled
+
+[*] --> Pending : 顾客提交预订 [校验通过]\n/ 保存方案和快照，预留各晚库存，计算Tc
+
+Pending -down-> Confirmed : 工作人员确认 [t < Tc]\n/ 保留原价及占用，保存通知
+Pending -left-> Rejected : 工作人员拒绝 [t < Tc且填写原因]\n/ 释放仍占用库存，保存通知
+Pending -right-> Cancelled : 顾客取消 [主动确认]\n或系统确认超时 [t >= Tc]\n/ 记录对应原因，释放仍占用库存，通知
+
+Confirmed -down-> CheckedIn : 工作人员办理入住\n[入住日14:00 <= t < Ta]\n/ 记录实际入住时间，不重复占用
+Confirmed -right-> Cancelled : 顾客取消 [C]\n或系统未到店取消 [N]\n或工作人员无法履约取消 [F]\n/ 记录原因，释放仍占用库存，通知
+CheckedIn -down-> Completed : 工作人员核对实际离店并办理退房\n/ 记录实际时间，按规则处理未使用库存
+
+Pending -left-> Pending : 改房型或日期 [M]\n/ 整体更新方案及库存，重算Tc
+Confirmed -left-> Pending : 改房型或日期 [M]\n/ 整体更新方案及库存，重算Tc
+
+Pending : 仅改人数或联系方式 [I] / 保存信息，其他业务要素不变
+Confirmed : 仅改人数或联系方式 [I] / 保存信息，其他业务要素不变
+CheckedIn : 到预订退房日12:00仍未离店 / 提醒工作人员，保持已入住
+
+legend bottom
+  箭头标签：事件 [条件] / 动作。t为实际执行时校验的北京时间。
+  工作人员均限订单所属酒店；顾客操作均限本人订单。
+  Tc = min(当前方案保存时间+30分钟，入住日次日00:00)；Ta = 入住日次日00:00。
+  C：顾客主动确认取消，且t早于入住日00:00。N：t >= Ta且仍未入住。
+  F：工作人员已对受影响日期停售，并记录无法履约原因及沟通情况。
+  M：t早于原入住日00:00；新入住日晚于修改当日；同酒店、人数合法、逐晚可售、无重复有效预订；顾客确认新报价及后果。
+  改订库存校验计入本单同房型同日期的可复用预留，按新旧方案净变化调整库存。
+  I：t早于原入住日00:00，人数和联系信息合法；不重报价，不因后来停售或余量为零而拒绝。
+  仅改人数或联系方式不改变价格、库存、订单状态、原确认截止；改订失败保留原方案。
+  成功改房型或日期后旧超时任务失效；新方案后来被拒绝或超时不恢复旧方案。
+  t >= Tc时不再接受人工确认或拒绝，按确认超时取消；t >= Ta时不能继续入住。
+  确认超时、未到店须在相应截止后60秒内完成取消和通知。
+  提前退房仅释放实际退房日当晚及以后原单仍占用的日期；保留预订总价和已使用历史。
+  库存释放不清除停售，过去日期不可再售；重复操作不重复释放。
+  已拒绝、已取消、已完成为终态，只保留历史，不恢复为有效订单；未画出的状态转换一律禁止。
+  所有成功变更记录日志；订单、库存、成功日志及对应通知在同一事务中保存。
+  管理员仅查询、通知及协调；延住另建订单，不直接延长原单。
+endlegend
+@enduml

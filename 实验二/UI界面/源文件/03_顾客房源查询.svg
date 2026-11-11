@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1160" viewBox="0 0 1440 1160">
+<title>酒店预订系统 顾客房源查询</title>
+<g font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif">
+<rect x="0" y="0" width="1440" height="1160" rx="0" fill="#F4F7FB" stroke="none"/>
+<rect x="0" y="0" width="1440" height="80" rx="0" fill="#FFFFFF" stroke="none"/>
+<path d="M0 79L1440 79" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<rect x="64" y="21" width="38" height="38" rx="11" fill="#2463DA" stroke="none"/>
+<path d="M74 44V34h18v10M72 44h22v7M75 44v7M91 44v7M78 34v7h10v-7" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+<text x="115" y="46" font-size="21" fill="#172B46" font-weight="700" text-anchor="start">酒店预订</text>
+<text x="438" y="46" font-size="15" fill="#2463DA" font-weight="600" text-anchor="start">查找酒店</text>
+<rect x="439" y="76" width="62" height="3" rx="1" fill="#2463DA" stroke="none"/>
+<text x="552" y="46" font-size="15" fill="#65758B" font-weight="400" text-anchor="start">我的订单</text>
+<text x="666" y="46" font-size="15" fill="#65758B" font-weight="400" text-anchor="start">消息通知</text>
+<rect x="1204" y="23" width="34" height="34" rx="17" fill="#E9F0FC" stroke="none"/>
+<text x="1221" y="46" font-size="14" fill="#2463DA" font-weight="600" text-anchor="middle">林</text>
+<text x="1248" y="46" font-size="14" fill="#172B46" font-weight="400" text-anchor="start">林同学</text>
+<path d="M1316 38l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
+<text x="1344" y="46" font-size="13" fill="#65758B" font-weight="400" text-anchor="start">退出</text>
+<rect x="64" y="108" width="132" height="27" rx="5" fill="#E8F0FD" stroke="none"/>
+<text x="130.0" y="126" font-size="12" fill="#2463DA" font-weight="500" text-anchor="middle">安心安排每一晚</text>
+<text x="64" y="178" font-size="32" fill="#172B46" font-weight="700" text-anchor="start">南京，下一站好好休息。</text>
+<text x="66" y="207" font-size="15" fill="#65758B" font-weight="400" text-anchor="start">按住宿总价比较房源，清楚查看每晚价格与连续住宿余房。</text>
+<rect x="64" y="233" width="1312" height="100" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>
+<text x="88" y="263" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">目的地</text>
+<text x="88" y="295" font-size="18" fill="#172B46" font-weight="600" text-anchor="start">南京</text>
+<path d="M250 284l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
+<text x="310" y="263" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">入住日期</text>
+<text x="310" y="295" font-size="18" fill="#172B46" font-weight="600" text-anchor="start">2026-11-20</text>
+<path d="M500 284l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
+<text x="572" y="263" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">退房日期</text>
+<text x="572" y="295" font-size="18" fill="#172B46" font-weight="600" text-anchor="start">2026-11-22</text>
+<path d="M762 284l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
+<text x="834" y="263" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">入住人数</text>
+<text x="834" y="295" font-size="18" fill="#172B46" font-weight="600" text-anchor="start">2 人</text>
+<path d="M950 284l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
+<path d="M286 253L286 311" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<path d="M548 253L548 311" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<path d="M810 253L810 311" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<path d="M1018 253L1018 311" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<rect x="1090" y="247" width="76" height="27" rx="5" fill="#F0F4FA" stroke="none"/>
+<text x="1128.0" y="265" font-size="12" fill="#65758B" font-weight="500" text-anchor="middle">共 2 晚</text>
+<rect x="1192" y="261" width="160" height="44" rx="8" fill="#2463DA" stroke="#2463DA"/>
+<text x="1272.0" y="289" font-size="15" fill="#FFFFFF" font-weight="600" text-anchor="middle">查询房源</text>
+<text x="1090" y="306" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">每笔预订 1 间</text>
+<text x="64" y="376" font-size="18" fill="#172B46" font-weight="600" text-anchor="start">筛选条件</text>
+<rect x="64" y="392" width="256" height="454" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>
+<text x="88" y="429" font-size="16" fill="#172B46" font-weight="600" text-anchor="start">住宿总价</text>
+<text x="88" y="453" font-size="12" fill="#65758B" font-weight="400" text-anchor="start">人民币 · 2晚 / 1间</text>
+<rect x="88" y="471" width="88" height="42" rx="7" fill="#FFFFFF" stroke="#E2E8F0"/>
+<rect x="208" y="471" width="88" height="42" rx="7" fill="#FFFFFF" stroke="#E2E8F0"/>
+<text x="101" y="498" font-size="14" fill="#172B46" font-weight="400" text-anchor="start">¥ 0</text>
+<text x="221" y="498" font-size="14" fill="#172B46" font-weight="400" text-anchor="start">¥ 1000</text>
+<text x="186" y="498" font-size="13" fill="#65758B" font-weight="400" text-anchor="start">—</text>
+<rect x="88" y="533" width="208" height="44" rx="8" fill="#FFFFFF" stroke="#E2E8F0"/>
+<text x="192.0" y="561" font-size="15" fill="#2463DA" font-weight="600" text-anchor="middle">应用价格筛选</text>
+<path d="M88 600L296 600" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<text x="88" y="634" font-size="16" fill="#172B46" font-weight="600" text-anchor="start">房型</text>
+<rect x="88" y="656" width="17" height="17" rx="4" fill="#2463DA" stroke="#2463DA"/>
+<path d="M92 664l3 3 6-7" fill="none" stroke="white" stroke-width="1.6"/>
+<text x="118" y="670" font-size="14" fill="#172B46" font-weight="400" text-anchor="start">全部房型</text>
+<rect x="88" y="694" width="17" height="17" rx="4" fill="#FFFFFF" stroke="#C8D2E0"/>
+<text x="118" y="708" font-size="14" fill="#172B46" font-weight="400" text-anchor="start">大床房</text>
+<rect x="88" y="732" width="17" height="17" rx="4" fill="#FFFFFF" stroke="#C8D2E0"/>
+<text x="118" y="746" font-size="14" fill="#172B46" font-weight="400" text-anchor="start">双床房</text>
+<path d="M88 770L296 770" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<text x="88" y="811" font-size="14" fill="#2463DA" font-weight="500" text-anchor="start">重置筛选条件</text>
+<rect x="64" y="866" width="256" height="151" rx="12" fill="#EBF2FC" stroke="none"/>
+<text x="88" y="902" font-size="16" fill="#172B46" font-weight="600" text-anchor="start">整段住宿，都有房</text>
+<text x="88" y="931" font-size="13" fill="#65758B" font-weight="400" text-anchor="start">只有每晚均可售的房源</text>
+<text x="88" y="954" font-size="13" fill="#65758B" font-weight="400" text-anchor="start">才会出现在结果中。</text>
+<text x="88" y="987" font-size="12" fill="#2463DA" font-weight="400" text-anchor="start">余房按整段住宿的最小值展示。</text>
+<text x="344" y="376" font-size="20" fill="#172B46" font-weight="700" text-anchor="start">3 个可订方案</text>
+<text x="520" y="376" font-size="13" fill="#65758B" font-weight="400" text-anchor="start">11月20日 — 11月22日 · 2晚 · 2人</text>
+<rect x="1164" y="350" width="212" height="36" rx="7" fill="#FFFFFF" stroke="#E2E8F0"/>
+<text x="1178" y="374" font-size="13" fill="#172B46" font-weight="400" text-anchor="start">住宿总价：从低到高</text>
+<path d="M1352 366l4 4 4-4" fill="none" stroke="#65758B" stroke-width="1.5"/>
+<rect x="344" y="392" width="1032" height="204" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>
+<svg x="360" y="408" width="220" height="172" viewBox="0 0 220 172">
+<rect x="0" y="0" width="220" height="172" rx="9" fill="#EAE2D6" stroke="none"/>
+<rect x="0" y="127" width="220" height="45" rx="0" fill="#D8D0C3" stroke="none"/>
+<rect x="16" y="18" width="64" height="77" rx="3" fill="#F7FAFC" stroke="#CAD5DF"/>
+<rect x="21" y="23" width="54" height="67" rx="0" fill="#C2D7E4" stroke="none"/>
+<rect x="21" y="65" width="17" height="25" rx="0" fill="#9EB4C2" stroke="none"/>
+<rect x="41" y="48" width="14" height="42" rx="0" fill="#ACC2CF" stroke="none"/>
+<rect x="58" y="57" width="17" height="33" rx="0" fill="#96B0C0" stroke="none"/>
+<path d="M48 23L48 90" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+<path d="M21 54L75 54" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+<rect x="11" y="15" width="11" height="85" rx="2" fill="#A68D74" stroke="none"/>
+<rect x="75" y="15" width="10" height="85" rx="2" fill="#A68D74" stroke="none"/>
+<rect x="120" y="22" width="41" height="31" rx="2" fill="#F6F3EC" stroke="#D1C7B9"/>
+<path d="M123 47L137 31L147 42L157 34L158 49Z" fill="#AEB9A7"/>
+<rect x="92" y="76" width="110" height="50" rx="4" fill="#A68D74" stroke="none"/>
+<rect x="84" y="109" width="125" height="47" rx="5" fill="#FAFBFC" stroke="none"/>
+<rect x="95" y="99" width="47" height="18" rx="5" fill="#FFFFFF" stroke="none"/>
+<rect x="149" y="99" width="47" height="18" rx="5" fill="#FFFFFF" stroke="none"/>
+<rect x="84" y="127" width="125" height="29" rx="3" fill="#B4C1CC" stroke="none"/>
+<rect x="90" y="155" width="113" height="6" rx="2" fill="#78858C" stroke="none"/>
+<rect x="44" y="111" width="31" height="29" rx="3" fill="#AB9178" stroke="none"/>
+<path d="M58 83L58 111" fill="none" stroke="#6D6B62" stroke-width="2" stroke-linecap="round"/>
+<path d="M47 84L51 68H65L70 84Z" fill="#F8E6BE"/>
+<rect x="10" y="138" width="66" height="27" rx="5" fill="#FFFFFF" stroke="none"/>
+<text x="43.0" y="156" font-size="12" fill="#566579" font-weight="500" text-anchor="middle">房型示意</text>
+</svg>
+<text x="604" y="431" font-size="22" fill="#172B46" font-weight="700" text-anchor="start">南京栖岸酒店</text>
+<text x="604" y="457" font-size="13" fill="#65758B" font-weight="400" text-anchor="start">鼓楼区 · 中山北路</text>
+<text x="604" y="490" font-size="16" fill="#172B46" font-weight="600" text-anchor="start">舒适大床房</text>
+<text x="604" y="517" font-size="13" fill="#65758B" font-weight="400" text-anchor="start">1张1.8米大床  ·  最多2人</text>
+<rect x="604" y="537" width="155" height="27" rx="5" fill="#F3F6FA" stroke="none"/>
+<text x="681.5" y="555" font-size="12" fill="#65758B" font-weight="500" text-anchor="middle">11月20日  ¥268</text>
+<rect x="769" y="537" width="155" height="27" rx="5" fill="#F3F6FA" stroke="none"/>
+<text x="846.5" y="555" font-size="12" fill="#65758B" font-weight="500" text-anchor="middle">11月21日  ¥288</text>
+<text x="604" y="582" font-size="13" fill="#2463DA" font-weight="500" text-anchor="start">查看房源详情</text>
+<path d="M1128 415L1128 573" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<text x="1352" y="425" font-size="12" fill="#65758B" font-weight="400" text-anchor="end">本次住宿总价</text>
+<text x="1352" y="468" font-size="34" fill="#172B46" font-weight="700" text-anchor="end">¥556</text>
+<text x="1352" y="491" font-size="12" fill="#65758B" font-weight="400" text-anchor="end">2晚 / 1间 · 到店付款</text>
+<rect x="1178" y="503" width="174" height="27" rx="5" fill="#E9F6F1" stroke="none"/>
+<text x="1265.0" y="521" font-size="12" fill="#25745B" font-weight="500" text-anchor="middle">可售余房 2 间</text>
+<rect x="1178" y="537" width="174" height="44" rx="8" fill="#2463DA" stroke="#2463DA"/>
+<text x="1265.0" y="565" font-size="15" fill="#FFFFFF" font-weight="600" text-anchor="middle">预订 1 间</text>
+<rect x="344" y="616" width="1032" height="204" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>
+<svg x="360" y="632" width="220" height="172" viewBox="0 0 220 172">
+<rect x="0" y="0" width="220" height="172" rx="9" fill="#E3EAF0" stroke="none"/>
+<rect x="0" y="127" width="220" height="45" rx="0" fill="#D8D0C3" stroke="none"/>
+<rect x="16" y="18" width="64" height="77" rx="3" fill="#F7FAFC" stroke="#CAD5DF"/>
+<rect x="21" y="23" width="54" height="67" rx="0" fill="#C2D7E4" stroke="none"/>
+<rect x="21" y="65" width="17" height="25" rx="0" fill="#9EB4C2" stroke="none"/>
+<rect x="41" y="48" width="14" height="42" rx="0" fill="#ACC2CF" stroke="none"/>
+<rect x="58" y="57" width="17" height="33" rx="0" fill="#96B0C0" stroke="none"/>
+<path d="M48 23L48 90" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+<path d="M21 54L75 54" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+<rect x="11" y="15" width="11" height="85" rx="2" fill="#8298B0" stroke="none"/>
+<rect x="75" y="15" width="10" height="85" rx="2" fill="#8298B0" stroke="none"/>
+<rect x="120" y="22" width="41" height="31" rx="2" fill="#F6F3EC" stroke="#D1C7B9"/>
+<path d="M123 47L137 31L147 42L157 34L158 49Z" fill="#AEB9A7"/>
+<rect x="75" y="76" width="62" height="45" rx="4" fill="#8298B0" stroke="none"/>
+<rect x="72" y="110" width="68" height="44" rx="5" fill="#FAFBFC" stroke="none"/>
+<rect x="81" y="101" width="44" height="16" rx="5" fill="#FFFFFF" stroke="none"/>
+<rect x="72" y="127" width="68" height="27" rx="3" fill="#C4D1DF" stroke="none"/>
+<rect x="75" y="153" width="62" height="6" rx="2" fill="#7F8A93" stroke="none"/>
+<rect x="146" y="76" width="62" height="45" rx="4" fill="#8298B0" stroke="none"/>
+<rect x="143" y="110" width="68" height="44" rx="5" fill="#FAFBFC" stroke="none"/>
+<rect x="152" y="101" width="44" height="16" rx="5" fill="#FFFFFF" stroke="none"/>
+<rect x="143" y="127" width="68" height="27" rx="3" fill="#C4D1DF" stroke="none"/>
+<rect x="146" y="153" width="62" height="6" rx="2" fill="#7F8A93" stroke="none"/>
+<rect x="44" y="111" width="31" height="29" rx="3" fill="#AB9178" stroke="none"/>
+<path d="M58 83L58 111" fill="none" stroke="#6D6B62" stroke-width="2" stroke-linecap="round"/>
+<path d="M47 84L51 68H65L70 84Z" fill="#F8E6BE"/>
+<rect x="10" y="138" width="66" height="27" rx="5" fill="#FFFFFF" stroke="none"/>
+<text x="43.0" y="156" font-size="12" fill="#566579" font-weight="500" text-anchor="middle">房型示意</text>
+</svg>
+<text x="604" y="655" font-size="22" fill="#172B46" font-weight="700" text-anchor="start">南京云庭酒店</text>
+<text x="604" y="681" font-size="13" fill="#65758B" font-weight="400" text-anchor="start">玄武区 · 珠江路</text>
+<text x="604" y="714" font-size="16" fill="#172B46" font-weight="600" text-anchor="start">舒适双床房</text>
+<text x="604" y="741" font-size="13" fill="#65758B" font-weight="400" text-anchor="start">2张1.2米单人床  ·  最多2人</text>
+<rect x="604" y="761" width="155" height="27" rx="5" fill="#F3F6FA" stroke="none"/>
+<text x="681.5" y="779" font-size="12" fill="#65758B" font-weight="500" text-anchor="middle">11月20日  ¥298</text>
+<rect x="769" y="761" width="155" height="27" rx="5" fill="#F3F6FA" stroke="none"/>
+<text x="846.5" y="779" font-size="12" fill="#65758B" font-weight="500" text-anchor="middle">11月21日  ¥328</text>
+<text x="604" y="806" font-size="13" fill="#2463DA" font-weight="500" text-anchor="start">查看房源详情</text>
+<path d="M1128 639L1128 797" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<text x="1352" y="649" font-size="12" fill="#65758B" font-weight="400" text-anchor="end">本次住宿总价</text>
+<text x="1352" y="692" font-size="34" fill="#172B46" font-weight="700" text-anchor="end">¥626</text>
+<text x="1352" y="715" font-size="12" fill="#65758B" font-weight="400" text-anchor="end">2晚 / 1间 · 到店付款</text>
+<rect x="1178" y="727" width="174" height="27" rx="5" fill="#FFF3DC" stroke="none"/>
+<text x="1265.0" y="745" font-size="12" fill="#9B6414" font-weight="500" text-anchor="middle">可售余房 1 间</text>
+<rect x="1178" y="761" width="174" height="44" rx="8" fill="#2463DA" stroke="#2463DA"/>
+<text x="1265.0" y="789" font-size="15" fill="#FFFFFF" font-weight="600" text-anchor="middle">预订 1 间</text>
+<rect x="344" y="840" width="1032" height="204" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>
+<svg x="360" y="856" width="220" height="172" viewBox="0 0 220 172">
+<rect x="0" y="0" width="220" height="172" rx="9" fill="#E5E9DE" stroke="none"/>
+<rect x="0" y="127" width="220" height="45" rx="0" fill="#D8D0C3" stroke="none"/>
+<rect x="16" y="18" width="64" height="77" rx="3" fill="#F7FAFC" stroke="#CAD5DF"/>
+<rect x="21" y="23" width="54" height="67" rx="0" fill="#C2D7E4" stroke="none"/>
+<rect x="21" y="65" width="17" height="25" rx="0" fill="#9EB4C2" stroke="none"/>
+<rect x="41" y="48" width="14" height="42" rx="0" fill="#ACC2CF" stroke="none"/>
+<rect x="58" y="57" width="17" height="33" rx="0" fill="#96B0C0" stroke="none"/>
+<path d="M48 23L48 90" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+<path d="M21 54L75 54" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+<rect x="11" y="15" width="11" height="85" rx="2" fill="#859680" stroke="none"/>
+<rect x="75" y="15" width="10" height="85" rx="2" fill="#859680" stroke="none"/>
+<rect x="120" y="22" width="41" height="31" rx="2" fill="#F6F3EC" stroke="#D1C7B9"/>
+<path d="M123 47L137 31L147 42L157 34L158 49Z" fill="#AEB9A7"/>
+<rect x="92" y="76" width="110" height="50" rx="4" fill="#859680" stroke="none"/>
+<rect x="84" y="109" width="125" height="47" rx="5" fill="#FAFBFC" stroke="none"/>
+<rect x="95" y="99" width="47" height="18" rx="5" fill="#FFFFFF" stroke="none"/>
+<rect x="149" y="99" width="47" height="18" rx="5" fill="#FFFFFF" stroke="none"/>
+<rect x="84" y="127" width="125" height="29" rx="3" fill="#C3CEB8" stroke="none"/>
+<rect x="90" y="155" width="113" height="6" rx="2" fill="#78858C" stroke="none"/>
+<rect x="44" y="111" width="31" height="29" rx="3" fill="#AB9178" stroke="none"/>
+<path d="M58 83L58 111" fill="none" stroke="#6D6B62" stroke-width="2" stroke-linecap="round"/>
+<path d="M47 84L51 68H65L70 84Z" fill="#F8E6BE"/>
+<rect x="10" y="138" width="66" height="27" rx="5" fill="#FFFFFF" stroke="none"/>
+<text x="43.0" y="156" font-size="12" fill="#566579" font-weight="500" text-anchor="middle">房型示意</text>
+</svg>
+<text x="604" y="879" font-size="22" fill="#172B46" font-weight="700" text-anchor="start">南京溪畔酒店</text>
+<text x="604" y="905" font-size="13" fill="#65758B" font-weight="400" text-anchor="start">秦淮区 · 长乐路</text>
+<text x="604" y="938" font-size="16" fill="#172B46" font-weight="600" text-anchor="start">景观大床房</text>
+<text x="604" y="965" font-size="13" fill="#65758B" font-weight="400" text-anchor="start">1张1.8米大床  ·  最多2人</text>
+<rect x="604" y="985" width="155" height="27" rx="5" fill="#F3F6FA" stroke="none"/>
+<text x="681.5" y="1003" font-size="12" fill="#65758B" font-weight="500" text-anchor="middle">11月20日  ¥358</text>
+<rect x="769" y="985" width="155" height="27" rx="5" fill="#F3F6FA" stroke="none"/>
+<text x="846.5" y="1003" font-size="12" fill="#65758B" font-weight="500" text-anchor="middle">11月21日  ¥388</text>
+<text x="604" y="1030" font-size="13" fill="#2463DA" font-weight="500" text-anchor="start">查看房源详情</text>
+<path d="M1128 863L1128 1021" fill="none" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+<text x="1352" y="873" font-size="12" fill="#65758B" font-weight="400" text-anchor="end">本次住宿总价</text>
+<text x="1352" y="916" font-size="34" fill="#172B46" font-weight="700" text-anchor="end">¥746</text>
+<text x="1352" y="939" font-size="12" fill="#65758B" font-weight="400" text-anchor="end">2晚 / 1间 · 到店付款</text>
+<rect x="1178" y="951" width="174" height="27" rx="5" fill="#E9F6F1" stroke="none"/>
+<text x="1265.0" y="969" font-size="12" fill="#25745B" font-weight="500" text-anchor="middle">可售余房 3 间</text>
+<rect x="1178" y="985" width="174" height="44" rx="8" fill="#2463DA" stroke="#2463DA"/>
+<text x="1265.0" y="1013" font-size="15" fill="#FFFFFF" font-weight="600" text-anchor="middle">预订 1 间</text>
+<rect x="344" y="1068" width="1032" height="46" rx="8" fill="#EAF1FC" stroke="none"/>
+<text x="366" y="1097" font-size="13" fill="#45638C" font-weight="400" text-anchor="start">提示：查询不会保留房间，提交预订时将再次核对房价与余房。</text>
+<text x="64" y="1142" font-size="12" fill="#8A97A8" font-weight="400" text-anchor="start">酒店预订系统</text>
+<text x="1376" y="1142" font-size="12" fill="#8A97A8" font-weight="400" text-anchor="end">北京时间 · 人民币</text>
+</g></svg>

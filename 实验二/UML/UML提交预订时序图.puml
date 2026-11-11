@@ -1,0 +1,85 @@
+@startuml
+title 酒店预订系统 UML提交预订时序图
+hide footbox
+autonumber
+skinparam shadowing false
+skinparam defaultFontName Microsoft YaHei
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 50
+
+actor "顾客" as Customer
+boundary "预订页面" as Web
+control "订单服务 M05" as Order
+control "权限服务 M01" as Auth
+control "库存服务 M03" as Stock
+control "日志服务 M10" as Audit
+database "数据访问层 / PostgreSQL" as DB
+
+Customer -> Web : 确认报价，填写信息并提交
+Web -> Order : 创建预订（方案、报价凭据、请求键）
+Order -> Auth : 校验当前会话、账号及顾客权限
+Auth --> Order : 当前身份与权限校验结果
+break 身份无效或无权操作
+  Order --> Web : 拒绝请求
+  Web --> Customer : 提示登录或权限问题
+end
+
+group 共享数据库事务
+  Order -> DB : BEGIN
+  ref over Order, DB
+    原子登记请求键和内容摘要；并发同键请求等待前一结果
+    已处理时查询原订单当前状态，同键异内容拒绝复用
+  end ref
+  break 原请求已成功处理，或请求键与内容冲突
+    Order -> DB : 结束无业务变更的事务
+    Order --> Web : 同内容返回原订单；异内容返回冲突
+    Web --> Customer : 展示原订单结果或冲突提示
+  end
+
+  Order -> DB : 保护酒店和房型资料，核对入住信息及重复有效预订
+  Order -> Stock : 复核全部住宿日期的库存与价格（共享事务）
+  Stock -> DB : 按房型、日期顺序锁定 [入住日，退房日) 库存
+  DB --> Stock : 各晚库存、价格及停售状态
+  Stock --> Order : 区间可售性、逐晚报价和总价
+  Order -> Order : 复核当前日期、人数、资料有效性\n验证报价凭据并比对当前报价
+
+  alt 校验通过，且当前报价与顾客确认报价一致
+    group 业务写入（任一步失败立即中止，整体回滚）
+      Order -> DB : 保存待确认订单、方案快照、逐晚明细及确认截止
+      Order -> Stock : 为订单预留全部住宿日期的库存
+      Stock -> DB : 更新逐晚占用数量并保存占用记录
+      Order -> Audit : 记录创建成功事件（共享事务）
+      Audit -> DB : 保存成功日志，等待统一提交
+      Order -> DB : 保存请求键与订单、处理事件的关联
+    end
+
+    alt 所有业务写入成功
+      Order -> DB : COMMIT
+      DB --> Order : 提交成功
+      Order --> Web : 订单号、待确认状态、价格及确认截止
+      Web --> Customer : 预订成功，等待酒店确认
+    else 任一步写入失败（含并发唯一约束冲突）
+      Order -> DB : ROLLBACK
+      ref over Order, DB : 回滚后由M10独立尝试记录失败日志
+      Order --> Web : 失败原因，订单与库存整体未生效
+      Web --> Customer : 展示失败及重试提示
+    end
+  else 日期、人数等不合法，任一晚缺数据、无房或停售，凭据无效，或报价变化
+    Order -> DB : ROLLBACK，不留下部分库存占用
+    Order --> Web : 失败原因；合法报价变化时返回新报价及确认凭据
+    Web --> Customer : 按原因调整信息；报价变化须主动确认后重新提交
+  end
+end
+
+note over Order, DB
+  COMMIT结果未确认或成功响应丢失时，不宣称已回滚：
+  使用原请求键重试，读取已保存结果或安全地重新处理。
+end note
+
+legend bottom
+  请求幂等与重复有效预订分别校验；首次下单只进入待确认，不生成酒店确认通知。
+  各服务共用事务，库存锁保持到提交或回滚；每晚仅占一间，不占退房当晚。
+  并发提交的有效预订唯一性最终由数据库约束保证。
+  本图折叠请求幂等及失败日志细节，完整分支参见同目录详细版时序图。
+endlegend
+@enduml

@@ -1,0 +1,105 @@
+@startuml
+title 酒店预订系统 UML组件图 分层与模块依赖
+skinparam componentStyle rectangle
+skinparam shadowing false
+top to bottom direction
+
+actor "顾客" as Customer
+actor "酒店工作人员" as Staff
+actor "平台管理员" as Admin
+
+package "表现层" {
+  component "顾客页面与请求入口" as CustomerUI
+  component "酒店页面与请求入口" as StaffUI
+  component "管理页面与请求入口" as AdminUI
+}
+
+component "独立定时任务工作进程\n扫描数据库中的到期记录" as Scheduler
+
+package "业务层 同一应用代码" {
+  component "M01 账号与权限\nAuthService / AccessPolicy" as Auth
+  component "M02 酒店与房型\nCatalogService" as Catalog
+  component "M03 库存与房价\nInventoryService" as Inventory
+  component "M04 房源查询\nSearchService" as Search
+  component "M05 预订与订单\nOrderService / OrderPolicy" as Orders
+  component "M06 入住与退房\nStayService" as Stay
+  component "M07 履约异常\nIncidentService" as Incident
+  component "M08 系统内通知\nNotificationService" as Notice
+  component "M09 订单与余房统计\nStatisticsService" as Stats
+  component "M10 操作日志\nAuditService" as Audit
+}
+
+package "数据访问层" {
+  component "各模块Repository\n共享事务上下文 UnitOfWork" as DataAccess
+}
+database "PostgreSQL\n业务数据 历史 通知 日志 请求记录" as DB
+
+Customer --> CustomerUI
+Staff --> StaffUI
+Admin --> AdminUI
+CustomerUI ..> Auth : 当前身份与授权
+StaffUI ..> Auth : 当前身份与授权
+AdminUI ..> Auth : 当前身份与授权
+CustomerUI ..> Search
+CustomerUI ..> Orders
+CustomerUI ..> Notice
+StaffUI ..> Catalog
+StaffUI ..> Inventory
+StaffUI ..> Orders
+StaffUI ..> Stay
+StaffUI ..> Incident
+StaffUI ..> Stats
+StaffUI ..> Audit
+AdminUI ..> Catalog : 酒店管理
+AdminUI ..> Incident : 查询 通知 协调
+AdminUI ..> Audit
+
+Search ..> Catalog : 查询资料
+Search ..> Inventory : 查询价格与余量
+Orders ..> Auth : 核对操作人和权限
+Orders ..> Catalog : 核对有效资料
+Orders ..> Inventory : 预留 复用 释放
+Orders ..> Notice : 保存处理结果
+Orders ..> Audit : 保存成功事件
+Stay ..> Orders : 入住 未到店 退房命令
+Incident ..> Orders : 受权订单命令与查询
+Incident ..> Inventory : 工作人员停售
+Incident ..> Audit : 记录协调与处理
+Stats ..> Orders : 只读查询
+Stats ..> Inventory : 只读查询
+Catalog ..> Audit
+Inventory ..> Audit
+Auth ..> Audit
+
+Scheduler ..> Orders : 确认超时
+Scheduler ..> Stay : 未到店 延迟退房提醒
+
+Auth ..> DataAccess
+Catalog ..> DataAccess
+Inventory ..> DataAccess
+Orders ..> DataAccess
+Stay ..> DataAccess : 提醒标记
+Incident ..> DataAccess
+Notice ..> DataAccess
+Audit ..> DataAccess
+Scheduler ..> DataAccess : 只读候选扫描
+DataAccess --> DB
+
+note right of Orders
+  统一校验角色、状态、版本和时间
+  订单、逐晚库存、成功日志及对应通知
+  共享同一事务，提交后才返回成功
+end note
+
+note right of Auth
+  所有业务服务均执行当前权限与数据范围校验
+  为便于阅读未逐一画出通用授权依赖
+  管理员不直接确认、拒绝或取消订单
+end note
+
+note bottom of Scheduler
+  任务以当前方案编号和有效截止为准
+  页面请求同样复核截止，不等待扫描
+  本图箭头表示调用依赖，不表示独立网络服务
+end note
+@enduml
